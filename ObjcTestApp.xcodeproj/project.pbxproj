@@ -15,6 +15,7 @@
 		F430A6C51A846F6C008C207D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F430A6C41A846F6C008C207D /* Images.xcassets */; };
 		F430A6C81A846F6C008C207D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F430A6C61A846F6C008C207D /* LaunchScreen.xib */; };
 		F430A6D41A846F6C008C207D /* ObjcTestAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F430A6D31A846F6C008C207D /* ObjcTestAppTests.m */; };
+		F4E044611A88BEC3000F060E /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F406960F1A886E8900FAA72B /* Game.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F430A6D41A846F6C008C207D /* ObjcTestAppTests.m in Sources */,
+				F4E044611A88BEC3000F060E /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
