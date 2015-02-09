@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
+#import "Game.h"
 
 @interface ObjcTestAppTests : XCTestCase
 
@@ -28,6 +29,80 @@
 - (void)testExample {
     // This is an example of a functional test case.
     XCTAssert(YES, @"Pass");
+}
+
+/**
+ * 全部ガター
+ */
+- (void)testAllGutter {
+    Game *game = [Game game];
+    for (int i = 0; i < 20; i++) {
+        [game count:0];
+    }
+    // スコア:0点
+    XCTAssertEqual(game.score, 0);
+}
+
+/**
+ * 全部1本
+ */
+- (void)testAllOnePin {
+    Game *game = [Game game];
+    for (int i = 0; i < 20; i++) {
+        [game count:1];
+    }
+    // スコア:0点
+    XCTAssertEqual(game.score, 20);
+}
+
+/**
+ * １投目ストライク、その後3、3、1本、残りガター
+ */
+- (void)testFirstBollisStrike {
+    Game *game = [Game game];
+    [game count:10];
+    [game count:3];
+    [game count:3];
+    [game count:1];
+    for (int i = 0; i < 15; i++) {
+        [game count:0];
+    }
+    // スコア:23点
+    XCTAssertEqual(game.score, 23);
+}
+
+/**
+ * １、２投目ストライク、その後3、3、1本、残りガター
+ */
+- (void)testFirstAndSecondBollisStrike {
+    Game *game = [Game game];
+    [game count:10];
+    [game count:10];
+    [game count:3];
+    [game count:3];
+    [game count:1];
+    for (int i = 0; i < 13; i++) {
+        [game count:0];
+    }
+    // スコア:46点
+    XCTAssertEqual(game.score, 46);
+}
+
+/**
+ * １、２投目でスペア、その後3、3、1本、残りガター
+ */
+- (void)testFirstAndSecondBollisSpear {
+    Game *game = [Game game];
+    [game count:8];
+    [game count:2];
+    [game count:3];
+    [game count:3];
+    [game count:1];
+    for (int i = 0; i < 15; i++) {
+        [game count:0];
+    }
+    // スコア:20点
+    XCTAssertEqual(game.score, 20);
 }
 
 - (void)testPerformanceExample {
