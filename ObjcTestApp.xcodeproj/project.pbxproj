@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F40696101A886E8900FAA72B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = F406960F1A886E8900FAA72B /* Game.m */; };
 		F430A6BA1A846F6C008C207D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F430A6B91A846F6C008C207D /* main.m */; };
 		F430A6BD1A846F6C008C207D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F430A6BC1A846F6C008C207D /* AppDelegate.m */; };
 		F430A6C01A846F6C008C207D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F430A6BF1A846F6C008C207D /* ViewController.m */; };
@@ -27,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F406960E1A886E8900FAA72B /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		F406960F1A886E8900FAA72B /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		F430A6B41A846F6C008C207D /* ObjcTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ObjcTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F430A6B81A846F6C008C207D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F430A6B91A846F6C008C207D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -89,6 +92,8 @@
 				F430A6C41A846F6C008C207D /* Images.xcassets */,
 				F430A6C61A846F6C008C207D /* LaunchScreen.xib */,
 				F430A6B71A846F6C008C207D /* Supporting Files */,
+				F406960E1A886E8900FAA72B /* Game.h */,
+				F406960F1A886E8900FAA72B /* Game.m */,
 			);
 			path = ObjcTestApp;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 				F430A6C01A846F6C008C207D /* ViewController.m in Sources */,
 				F430A6BD1A846F6C008C207D /* AppDelegate.m in Sources */,
 				F430A6BA1A846F6C008C207D /* main.m in Sources */,
+				F40696101A886E8900FAA72B /* Game.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +418,7 @@
 				F430A6D91A846F6C008C207D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F430A6DA1A846F6C008C207D /* Build configuration list for PBXNativeTarget "ObjcTestAppTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +427,7 @@
 				F430A6DC1A846F6C008C207D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
