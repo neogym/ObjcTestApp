@@ -1,5 +1,5 @@
 PROJECT=ObjcTestApp.xcodeproj
-TEST_TARGET=ObjcTestAppTests
+SCHEME=ObjcTestApp
 TEST_SDK=iphonesimulator
 CONFIGURATION_DEBUG=Debug
 DESTINATION="platform=iOS Simulator,name=iPhone 6,OS=8.1"
@@ -13,19 +13,21 @@ clean:
 test:
 	xcodebuild \
 		-project $(PROJECT) \
-		-target $(TEST_TARGET) \
+		-scheme $(SCHEME) \
 		-sdk $(TEST_SDK) \
 		-configuration $(CONFIGURATION_DEBUG) \
 		-destination $(DESTINATION) \
+		test \
 		TEST_AFTER_BUILD=YES \
 		TEST_HOST=
 
 test-with-coverage:
 	xcodebuild \
 		-project $(PROJECT) \
-		-target $(TEST_TARGET) \
+		-scheme $(SCHEME) \
 		-sdk $(TEST_SDK) \
 		-configuration $(CONFIGURATION_DEBUG) \
+		test \
 		TEST_AFTER_BUILD=YES \
 		TEST_HOST= \
 		GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES \
