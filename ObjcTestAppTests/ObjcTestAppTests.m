@@ -108,7 +108,7 @@
 /**
  * ターキー
  */
-- (void)testPerfectGame {
+- (void)testTurkey {
     Game *game = [Game game];
     for (int i = 0; i < 3; i++) {
         [game count:10];

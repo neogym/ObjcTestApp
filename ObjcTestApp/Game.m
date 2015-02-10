@@ -45,9 +45,11 @@ struct Frame {
     if (self._frame == NULL) { // 最初の1投目のみ実行
         self._frame = [[self class] createFrame:current_throw];
     } else {
+        int frame_count = 1;
         struct Frame *p = self._frame;
         while (p->next != NULL) {
             p = p->next; // 1番最後に投げたフレームまで移動
+            frame_count++;
         }
         
         if (p->throw == NULL) { // まだ投げていない
@@ -60,7 +62,11 @@ struct Frame {
                     p->throw->next = current_throw;
                 }
             } else { // 2投投げている。
-                p->next = [[self class] createFrame:current_throw];
+                if (frame_count < 10) { // 1〜9フレーム目
+                    p->next = [[self class] createFrame:current_throw];
+                } else { // 10フレーム目
+                    p->throw->next->next = current_throw;
+                }
             }
         }
     }
@@ -70,23 +76,7 @@ struct Frame {
     int result = 0;
     struct Frame *p = self._frame;
     while (p != NULL) {
-        int frameScore = [[self class] frameScore:p];
-        result += frameScore;
-        if (frameScore == 10) {
-            struct Frame *nextFrame = p->next;
-            if (p->throw->count == 10) { // ストライクの場合
-                // 次の2投分を加算(ボーナス)
-                if (nextFrame->throw->count == 10) { // ダブルまたはターキーの場合
-                    result += nextFrame->throw->count;
-                    result += nextFrame->next->throw->count;
-                } else {
-                    result += [[self class] frameScore:nextFrame];
-                }
-            } else { // スペアの場合
-                // 次の1投分を加算(ボーナス)
-                result += nextFrame->throw->count;
-            }
-        }
+        result += [[self class] frameScore:p];
         p = p->next;
     }
     return result;
@@ -115,12 +105,27 @@ struct Frame {
  */
 + (int)frameScore:(struct Frame*)frame {
     int result = 0;
-    if (frame != NULL) {
-        result += frame->throw->count;
-        if (frame->throw->next != NULL) {
-            result += frame->throw->next->count;
-        }
+    struct Throw *p = frame->throw;
+    while (p != NULL) {
+        result += p->count;
+        p = p->next;
     }
+    
+    // ボーナス加算
+    struct Frame *nextFrame = frame->next;
+    if (frame->throw->count == 10) { // ストライクの場合
+        // 次の2投分を加算(ボーナス)
+        if (nextFrame->throw->count == 10) { // ダブルまたはターキーの場合
+            result += nextFrame->throw->count;
+            result += nextFrame->next->throw->count;
+        } else {
+            result += [[self class] frameScore:nextFrame];
+        }
+    } else if (result == 10) { // スペアの場合
+        // 次の1投分を加算(ボーナス)
+        result += nextFrame->throw->count;
+    }
+    
     return result;
 }
 
