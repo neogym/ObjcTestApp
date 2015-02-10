@@ -72,7 +72,7 @@
 }
 
 /**
- * １、２投目ストライク、その後3、3、1本、残りガター
+ * １、２投目ストライク(ダブル)、その後3、3、1本、残りガター
  */
 - (void)testFirstAndSecondBollisStrike {
     Game *game = [Game game];
@@ -103,6 +103,39 @@
     }
     // スコア:20点
     XCTAssertEqual(game.score, 20);
+}
+
+/**
+ * ターキー
+ */
+- (void)testPerfectGame {
+    Game *game = [Game game];
+    for (int i = 0; i < 3; i++) {
+        [game count:10];
+    }
+    for (int i = 0; i < 7; i++) {
+        [game count:0];
+    }
+    // スコア:60点
+    XCTAssertEqual(game.score, 60);
+}
+
+/**
+ * 3連続スペア
+ */
+- (void)testThreeTimesSpear {
+    Game *game = [Game game];
+    [game count:8];
+    [game count:2];
+    [game count:7];
+    [game count:3];
+    [game count:6];
+    [game count:4];
+    for (int i = 0; i < 7; i++) {
+        [game count:0];
+    }
+    // スコア:43点
+    XCTAssertEqual(game.score, 43);
 }
 
 - (void)testPerformanceExample {

@@ -75,15 +75,15 @@ struct Frame {
         if (frameScore == 10) {
             struct Frame *nextFrame = p->next;
             if (p->throw->count == 10) { // ストライクの場合
-                // 次の2投分を加算
-                if (nextFrame->throw->count == 10) { // 2回連続ストライクの場合
+                // 次の2投分を加算(ボーナス)
+                if (nextFrame->throw->count == 10) { // ダブルまたはターキーの場合
                     result += nextFrame->throw->count;
                     result += nextFrame->next->throw->count;
                 } else {
                     result += [[self class] frameScore:nextFrame];
                 }
             } else { // スペアの場合
-                // 次の1投分を加算
+                // 次の1投分を加算(ボーナス)
                 result += nextFrame->throw->count;
             }
         }
