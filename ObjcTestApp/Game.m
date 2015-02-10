@@ -107,10 +107,10 @@ struct Frame {
  */
 + (int)frameScore:(struct Frame*)frame {
     int result = 0;
-    struct Throw *p = frame->throw;
-    while (p != NULL) {
-        result += p->count;
-        p = p->next;
+    struct Throw *throw_p = frame->throw;
+    while (throw_p != NULL) {
+        result += throw_p->count;
+        throw_p = throw_p->next;
     }
     
     // ボーナス加算
