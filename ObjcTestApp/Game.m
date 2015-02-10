@@ -53,9 +53,13 @@ struct Frame {
         frame_p->throw = current_throw;
     } else { // 1投以上投げている。
         if (frame_p->throw->next == NULL) { // 1投だけ投げている
-            if (frame_p->throw->count == 10) { // 1投前にストライクを出している
-                frame_p->next = [[self class] createFrame:current_throw];
-            } else { // 2投目
+            if (frame_count < 10) {
+                if (frame_p->throw->count == 10) { // 1投前にストライクを出している
+                    frame_p->next = [[self class] createFrame:current_throw];
+                } else { // 2投目
+                    frame_p->throw->next = current_throw;
+                }
+            } else {
                 frame_p->throw->next = current_throw;
             }
         } else { // 2投投げている。
@@ -113,19 +117,35 @@ struct Frame {
         throw_p = throw_p->next;
     }
     
-    // ボーナス加算
-    struct Frame *nextFrame = frame->next;
-    if (frame->throw->count == 10) { // ストライクの場合
-        // 次の2投分を加算(ボーナス)
-        if (nextFrame->throw->count == 10) { // ダブルまたはターキーの場合
-            result += nextFrame->throw->count;
-            result += nextFrame->next->throw->count;
+    // ストライクまたはスペアの判定
+    int bonus_count;
+    struct Throw *t_p = frame->throw;
+    if (frame->throw->count == 10) {
+        // ストライクの場合、2投分ボーナス
+        bonus_count = 2;
+        t_p = t_p->next;
+    } else if (frame->throw->count + frame->throw->next->count == 10) {
+        // スペアの場合、1投分ボーナス
+        bonus_count = 1;
+        t_p = t_p->next->next;
+    } else {
+        bonus_count = 0;
+        t_p = NULL;
+    }
+    
+    // ボーナス得点の加算
+    struct Frame *f_p = frame;
+    while (bonus_count != 0 && f_p != NULL) {
+        if (t_p == NULL) {
+            f_p = f_p->next;
+            if (f_p != NULL) {
+                t_p = f_p->throw;
+            }
         } else {
-            result += [[self class] frameScore:nextFrame];
+            result += t_p->count;
+            bonus_count--;
+            t_p = t_p->next;
         }
-    } else if (result == 10) { // スペアの場合
-        // 次の1投分を加算(ボーナス)
-        result += nextFrame->throw->count;
     }
     
     return result;
