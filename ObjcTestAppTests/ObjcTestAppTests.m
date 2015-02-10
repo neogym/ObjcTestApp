@@ -113,7 +113,7 @@
     for (int i = 0; i < 3; i++) {
         [game count:10];
     }
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 14; i++) {
         [game count:0];
     }
     // スコア:60点
@@ -131,7 +131,7 @@
     [game count:3];
     [game count:6];
     [game count:4];
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 14; i++) {
         [game count:0];
     }
     // スコア:43点
