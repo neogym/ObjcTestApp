@@ -30,7 +30,7 @@ struct Frame {
 {
     self = [super init];
     if (self) {
-        self._frame = NULL;
+        self._frame = [[self class] createFrame];
     }
     return self;
 }
@@ -40,33 +40,29 @@ struct Frame {
 }
 
 - (void)count:(int)count {
-    struct Throw *current_throw = [[self class] createThow:count];
     
-    if (self._frame == NULL) { // 最初の1投目のみ実行
-        self._frame = [[self class] createFrame:current_throw];
-    } else {
-        int frame_count = 1;
-        struct Frame *p = self._frame;
-        while (p->next != NULL) {
-            p = p->next; // 1番最後に投げたフレームまで移動
-            frame_count++;
-        }
-        
-        if (p->throw == NULL) { // まだ投げていない
-            p->throw = current_throw;
-        } else { // 1投以上投げている。
-            if (p->throw->next == NULL) { // 1投だけ投げている
-                if (p->throw->count == 10) { // 1投前にストライクを出している
-                    p->next = [[self class] createFrame:current_throw];
-                } else { // 2投目
-                    p->throw->next = current_throw;
-                }
-            } else { // 2投投げている。
-                if (frame_count < 10) { // 1〜9フレーム目
-                    p->next = [[self class] createFrame:current_throw];
-                } else { // 10フレーム目
-                    p->throw->next->next = current_throw;
-                }
+    int frame_count = 1;
+    struct Frame *frame_p = self._frame;
+    while (frame_p->next != NULL) {
+        frame_p = frame_p->next; // 1番最後に投げたフレームまで移動
+        frame_count++;
+    }
+    
+    struct Throw *current_throw = [[self class] createThow:count];
+    if (frame_p->throw == NULL) { // まだ投げていない
+        frame_p->throw = current_throw;
+    } else { // 1投以上投げている。
+        if (frame_p->throw->next == NULL) { // 1投だけ投げている
+            if (frame_p->throw->count == 10) { // 1投前にストライクを出している
+                frame_p->next = [[self class] createFrame:current_throw];
+            } else { // 2投目
+                frame_p->throw->next = current_throw;
+            }
+        } else { // 2投投げている。
+            if (frame_count < 10) { // 1〜9フレーム目
+                frame_p->next = [[self class] createFrame:current_throw];
+            } else { // 10フレーム目
+                frame_p->throw->next->next = current_throw;
             }
         }
     }
@@ -91,10 +87,16 @@ struct Frame {
     return throw;
 }
 
-+ (struct Frame*)createFrame:(struct Throw*)throw {
++ (struct Frame*)createFrame {
     struct Frame *frame = malloc(sizeof(struct Frame));
-    frame->throw = throw;
+    frame->throw = NULL;
     frame->next = NULL;
+    return frame;
+}
+    
++ (struct Frame*)createFrame:(struct Throw*)throw {
+    struct Frame *frame = [[self class] createFrame];
+    frame->throw = throw;
     return frame;
 }
 
